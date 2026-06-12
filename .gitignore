@@ -1,0 +1,50 @@
+# ── Python / Backend ──
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+backend/venv/
+backend/env/
+ENV/
+
+# Environment Variables (CRITICAL: Never commit secrets)
+.env
+.env.local
+*.env
+backend/.env
+
+# Local Databases & Uploads
+backend/*.db
+backend/*.sqlite3
+backend/uniface_attendance.db
+backend/attendance.db
+backend/uploads/
+uploads/
+
+# Pytest / Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+
+# ── Node / Frontend ──
+node_modules/
+frontend/node_modules/
+dist/
+dist-ssr/
+build/
+*.local
+
+# Playwright
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
+frontend/playwright/.cache/
+
+# ── OS & IDE ──
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.log

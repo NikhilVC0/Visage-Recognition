@@ -1,0 +1,28 @@
+# ── Build Stage ──
+FROM python:3.11-slim as builder
+
+WORKDIR /app
+COPY backend/requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+# ── Production Stage ──
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies (libGL needed for OpenCV)
+RUN apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0 && rm -rf /var/lib/apt/lists/*
+
+# Copy installed python dependencies from builder
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
+
+# Copy backend application code
+COPY backend/app ./app
+COPY deploy/cloud-render/entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+
+EXPOSE 8000
+
+# Use entrypoint to run migrations then boot
+ENTRYPOINT ["./entrypoint.sh"]

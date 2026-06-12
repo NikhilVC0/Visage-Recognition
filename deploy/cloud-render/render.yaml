@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: uniface-backend
+    env: docker
+    dockerfilePath: deploy/cloud-render/Dockerfile.prod
+    region: ohio
+    plan: starter # 512MB/1GB RAM needed for ONNX
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ORIGINS
+        value: "https://your-frontend-url.vercel.app"
+      - key: FACE_MODEL_DEVICE
+        value: "cpu"
+      - key: SECRET_KEY
+        generateValue: true
